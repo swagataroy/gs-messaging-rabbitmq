@@ -1,0 +1,12 @@
+applications:
+- name: tls-test-swagata-original
+  memory: 512M
+  # Add your name/initials to make the hostname unique
+  host: tls-test-swagata-original
+  # domain: cfapps.io
+  #path: build/lib/psd-0.0.1-SNAPSHOT.war  #Gradle
+  path: target/gs-messaging-rabbitmq-0.1.0.jar  #Maven
+  env:
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'    
+    JAVA_OPTS: '-Dspring.profiles.active=cloud'
+    
