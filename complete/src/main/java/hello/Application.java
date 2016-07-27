@@ -17,14 +17,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@RestController
+@Profile("cloud")
+
 public class Application implements CommandLineRunner {
 
-	final static String queueName = "spring-boot";
+	final static String queueName = "spring-boot-1";
 
 	@Autowired
 	AnnotationConfigApplicationContext context;
+	
+	/*@Autowired
+	private Environment env;*/
 
 	@Autowired
 	RabbitTemplate rabbitTemplate;
@@ -64,16 +74,30 @@ public class Application implements CommandLineRunner {
 	}
 
     public static void main(String[] args) throws InterruptedException {
+    	System.out.println("Swagata now inside main 1234");
         SpringApplication.run(Application.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws Exception {    	
+        
+        System.out.println("Swagata print host "+rabbitTemplate.getConnectionFactory().getHost());
+        System.out.println("Swagata print port "+rabbitTemplate.getConnectionFactory().getPort());
+        System.out.println("Swagata print class "+rabbitTemplate.getConnectionFactory().getClass());
+        //System.out.println("Swagata spring.rabbitmq.addresses is "+env.getProperty("spring.rabbitmq.addresses"));
+        //System.out.println("Swagata spring.rabbitmq.ssl.enabled is "+env.getProperty("spring.rabbitmq.ssl.enabled"));
+        
+    	System.out.println("Swagata printing VCAP_SERVICES@@@@ "+context.getEnvironment().getProperty("VCAP_SERVICES"));
         System.out.println("Waiting five seconds...");
         Thread.sleep(5000);
         System.out.println("Sending message...");
-        rabbitTemplate.convertAndSend(queueName, "Hello from RabbitMQ!");
+        rabbitTemplate.convertAndSend(queueName, "Hello from RabbitMQ Swagata testing again!");
         receiver().getLatch().await(10000, TimeUnit.MILLISECONDS);
         context.close();
     }
+    
+    @RequestMapping("/")
+	public String hello() {
+		return "Hello World!";
+	}
 }

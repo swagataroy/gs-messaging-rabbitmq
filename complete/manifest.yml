@@ -1,8 +1,8 @@
 applications:
-- name: tls-test-swagata-original
+- name: tls-test-swagata-1
   memory: 512M
   # Add your name/initials to make the hostname unique
-  host: tls-test-swagata-original
+  host: tls-test-swagata-1
   # domain: cfapps.io
   #path: build/lib/psd-0.0.1-SNAPSHOT.war  #Gradle
   path: target/gs-messaging-rabbitmq-0.1.0.jar  #Maven
