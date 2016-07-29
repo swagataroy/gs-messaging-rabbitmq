@@ -33,8 +33,8 @@ public class Application implements CommandLineRunner {
 	@Autowired
 	AnnotationConfigApplicationContext context;
 	
-	/*@Autowired
-	private Environment env;*/
+	@Autowired
+	private Environment env;
 
 	@Autowired
 	RabbitTemplate rabbitTemplate;
@@ -74,7 +74,7 @@ public class Application implements CommandLineRunner {
 	}
 
     public static void main(String[] args) throws InterruptedException {
-    	System.out.println("Swagata now inside main 1234");
+    	System.out.println("Swagata now inside main 2345");
         SpringApplication.run(Application.class, args);
     }
 
@@ -85,7 +85,11 @@ public class Application implements CommandLineRunner {
         System.out.println("Swagata print port "+rabbitTemplate.getConnectionFactory().getPort());
         System.out.println("Swagata print class "+rabbitTemplate.getConnectionFactory().getClass());
         //System.out.println("Swagata spring.rabbitmq.addresses is "+env.getProperty("spring.rabbitmq.addresses"));
-        //System.out.println("Swagata spring.rabbitmq.ssl.enabled is "+env.getProperty("spring.rabbitmq.ssl.enabled"));
+        System.out.println("Swagata spring.rabbitmq.ssl.enabled is "+env.getProperty("spring.rabbitmq.ssl.enabled"));       
+        System.out.println("Swagata spring.rabbitmq.host is "+env.getProperty("spring.rabbitmq.host"));        
+        System.out.println("Swagata spring.rabbitmq.virtual-host is "+env.getProperty("spring.rabbitmq.virtual-host"));
+        System.out.println("Swagata spring.rabbitmq.username is "+env.getProperty("spring.rabbitmq.username"));
+        System.out.println("Swagata spring.rabbitmq.password is "+env.getProperty("spring.rabbitmq.password"));
         
     	System.out.println("Swagata printing VCAP_SERVICES@@@@ "+context.getEnvironment().getProperty("VCAP_SERVICES"));
         System.out.println("Waiting five seconds...");
